@@ -8,6 +8,7 @@ import Login from '../Pages/AppAuth/Login';
 import Register from '../Pages/AppAuth/Register';
 import Home from '../Pages/AppHome/Home';
 import { Games } from '../Pages/Games';
+import HomeImage from '../components/HomeImage';
 
 
 export const TabNavigator=()=>{
@@ -16,7 +17,7 @@ export const TabNavigator=()=>{
 
   return (
     <Tab.Navigator initialRouteName={Home}>
-      <Tab.Screen name= "Home" component={PlayerTeam}/>
+      <Tab.Screen name= "Home" component={HomeImage}/>
       <Tab.Screen name="Games" component={Games}/>
     </Tab.Navigator>
   )
