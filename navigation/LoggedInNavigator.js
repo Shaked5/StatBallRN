@@ -7,49 +7,26 @@ import PlayerTeam from '../Pages/PlayerTeam';
 import Login from '../Pages/AppAuth/Login';
 import Register from '../Pages/AppAuth/Register';
 import Home from '../Pages/AppHome/Home';
+import { Games } from '../Pages/Games';
 
-const Tab = createBottomTabNavigator();
 
-export const LoggedInNavigator = () => {
-      return (
-        <Tab.Navigator
-        initialRouteName={Home}
-        tabBarOptions ={{
-          style: {
-            borderTopColor: "rgba(0, 0, 0, 0.1)",
-            borderTopWidth: 2,
-          },
-          activeTintColor:"green",
-          labelStyle: {fontSize: 13, fontWeight:"700"},
-        }}
-        >
-          <Tab.Screen
-           name="Home" 
-           component ={Home}
-           options= {{
-            title: "Home"
-          }} 
-           />
-          {/* <Tab.Screen name="Players" component={PlayerTeam}/> */}
-          <Tab.Screen
-           name="Settings"
-           component={SettingsScreen}
-           options= {{
-            title: "Games"
-          }}
-           />
-          <Tab.Screen
-           name="My Team"
-           component={MyTeam}
-           options= {{
-             title: "MyTeam"
-           }}
-           />
-        </Tab.Navigator>
-      );
-    };
-    export default LoggedInNavigator;
-    
+export const TabNavigator=()=>{
+
+  const Tab = createBottomTabNavigator();
+
+  return (
+    <Tab.Navigator initialRouteName={Home}>
+      <Tab.Screen name= "Home" component={PlayerTeam}/>
+      <Tab.Screen name="Games" component={Games}/>
+    </Tab.Navigator>
+  )
+}
+export default TabNavigator;
+
+ {/* <Tab.Navigator initialRouteName={HomeStackScreen}>
+          <Tab.Screen name="Home" component={HomeStackScreen}/>
+          <Tab.Screen name="Games" component={GamesStackScreen}/>
+        </Tab.Navigator> */}
     
     
     

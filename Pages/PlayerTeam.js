@@ -13,9 +13,9 @@ export const PlayerTeam = ({route, navigation,data}) => {
   console.log("data from Home= ", data);
   const [playerList,setPlayerList] = useState([]);
 
-  useEffect(async () => {
-    setPlayerList(data);
-  },[])
+  // useEffect(async () => {
+  //   setPlayerList(data);
+  // },[])
 
   console.log('PlayerTeam',data)
   
