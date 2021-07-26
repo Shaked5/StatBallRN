@@ -6,7 +6,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Login from '../Pages/AppAuth/Login';
 import Register from '../Pages/AppAuth/Register';
 import Home from '../Pages/AppHome/Home';
-import LoggedInNavigator from './LoggedInNavigator';
+import LoggedInNavigator, { TabNavigator } from './LoggedInNavigator';
 import PlayerTeam from '../Pages/PlayerTeam';
 import { not } from 'react-native-reanimated';
 
@@ -16,72 +16,56 @@ const HomeStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const MainNavigator = (navigation, route) => {
-    
+
     const user = true;
-    const defaultScreens =   (
-            <>
-                <Stack.Screen
-                    name="Login"
-                    component={Login}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="Register"
-                    component={Register}
-                    options={{ headerShown: false }}
-                />
-            </>
-        ) ;
 
-   
+    //Authentication
+    const defaultScreens = (
+        <>
+            <Stack.Screen
+                name="Login"
+                component={Login}
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen
+                name="Register"
+                component={Register}
+                options={{ headerShown: false }}
+            />
+        </>
+    );
 
+
+//Main Tab Screen
     const LoggedInNavigator = (
-            // <Tab.Navigator
-            // initialRouteName={Home}
-            // tabBarOptions ={{
-            //   style: {
-            //     borderTopColor: "rgba(0, 0, 0, 0.1)",
-            //     borderTopWidth: 2,
-            //   },
-            //   activeTintColor:"green",
-            //   labelStyle: {fontSize: 13, fontWeight:"700"},
-            // }}
-            // >
-            <>
-              <Stack.Screen
-               name="Home" 
-               component ={()=> <Home/>}
-               options= {{
-                title: "Home"
-              }} 
-               />
-              {/* <Tab.Screen
-               name="Games"
-               component={SettingsScreen}
-               options= {{
-                title: "Games"
-              }}
-               /> */}
-              {/* <Tab.Screen
-               name="My Team"
-               component={MyTeam}
-               options= {{
-                 title: "MyTeam"
-               }}
-               /> 
-                </Stack.Navigator>
-               */}
-            </>
-          );
 
- 
+        // initialRouteName={Home}
+        // tabBarOptions={{
+        //     style: {
+        //         borderTopColor: "rgba(0, 0, 0, 0.1)",
+        //         borderTopWidth: 2,
+        //     },
+        //     activeTintColor: "green",
+        //     labelStyle: { fontSize: 13, fontWeight: "700" },
+        // }}>
+        <>
+            <Stack.Screen
+                name="Home"
+                component={TabNavigator}
+                options={{
+                    headerShown: false,
+
+                }}
+            />
+        </>
+    );
+
+
 
     return (
         <Stack.Navigator
-        
         >
-
-            {user?LoggedInNavigator:defaultScreens}
+            {user ? LoggedInNavigator : defaultScreens}
 
         </Stack.Navigator>
     )

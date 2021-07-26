@@ -33,11 +33,9 @@ export const Login = ({navigation,route,data}) => {
   // };
  
   const userLogin = async () => {
-    let data = await user.login(email,password);
+    let data = await user.loginWithEmailAndPass(email,password);
     console.log('userLogin',data)
-   navigation.navigate('LoggedInNavigator',{
-     params:data,
-   });
+   navigation.navigate('Home')
   }
 
   return (
