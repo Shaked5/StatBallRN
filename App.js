@@ -2,21 +2,16 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { View } from 'react-native'
 // import 'react-native-gesture-handler';
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import MainNavigator from './navigation/MainNavigator';
-import LoggedInNavigator from './navigation/LoggedInNavigator';
-import Login from './Pages/AppAuth/Login';
 import { NavigationContainer } from '@react-navigation/native';
-import Register from './Pages/AppAuth/Register';
+
+import StackNavigation from './navigation/StackNavigation';
 
 
 export const App = () => {
-
-
   return (
-    <NavigationContainer>
-      <MainNavigator />
-    </NavigationContainer>
+    // <NavigationContainer>
+      <StackNavigation />
+    // {/* </NavigationContainer> */}
   );
 }
 export default App;

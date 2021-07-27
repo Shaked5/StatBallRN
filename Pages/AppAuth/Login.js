@@ -1,17 +1,27 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import React from 'react';
-import { Text, TextInput, View, StyleSheet, TouchableOpacity, ImageBackground} from 'react-native'
+import { Text, TextInput, View, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native'
 import BackGImg from '../../Images/backGimg.png'
 
-import Register from './Register';
-import LoggedInNavigator from '../../navigation/LoggedInNavigator';
+
 import user from '../../handler/user';
+import AsyncStorage from '@react-native-community/async-storage';
 
 
-export const Login = ({navigation,route,data}) => {
+const storeData = async (value) => {
+  try {
+    const jsonValue = JSON.stringify(value)
+    await AsyncStorage.setItem('user', jsonValue)
+  } catch (e) {
+    // saving error
+  }
+}
+
+export const Login = ({ navigation, route, data }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [players, setPlayers] = useState([]);
+
 
   // const GetPlayers = async (email,password) => {
   //   // try{
@@ -26,20 +36,27 @@ export const Login = ({navigation,route,data}) => {
   //   const data = await response.json();
   //   console.log('GetPlayers',data);
   //   return data
-    // catch{
-    //   console.log('data = ',data)
-    // }
-    // setPlayers(data);
+  // catch{
+  //   console.log('data = ',data)
+  // }
+  // setPlayers(data);
   // };
- 
+
   const userLogin = async () => {
-    let data = await user.loginWithEmailAndPass(email,password);
-    console.log('userLogin',data)
-   navigation.navigate('Home')
+    let data = await user.loginWithEmailAndPass(email, password);
+    if (data === null) {
+      console.log('innn')
+      alert('boom!')
+      return;
+    }
+    console.log('userLogin', data)
+
+    storeData(data)
+    navigation.navigate('TabStack')
   }
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <ImageBackground source={BackGImg} style={styles.backgroundImage}>
         <Text style={styles.logo}>StatBall</Text>
         <View style={styles.inputView}>
@@ -60,7 +77,7 @@ export const Login = ({navigation,route,data}) => {
           <TouchableOpacity style={styles.loginBtn}>
             <Text style={styles.loginText} onPress={userLogin}>Login</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.loginBtn} onPress={() =>{
+          <TouchableOpacity style={styles.loginBtn} onPress={() => {
             navigation.navigate('Register')
           }}>
             <Text style={styles.loginText}>Signup</Text>
@@ -110,9 +127,9 @@ const styles = StyleSheet.create({
   },
   loginText: {
     fontSize: 50,
-    marginTop:30,
-    marginBottom:40,
-    padding:50,
+    marginTop: 30,
+    marginBottom: 40,
+    padding: 50,
 
   },
   loginBtn: {
@@ -124,7 +141,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 40,
     marginBottom: 10,
-    padding:50,
+    padding: 50,
   },
   backgroundImage: {
     flex: 1,

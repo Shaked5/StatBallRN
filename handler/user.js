@@ -63,7 +63,6 @@ export default class user {
 
     static loginWithEmailAndPass(email,password)
     {
-        console.log(email + " " + password);
         return new Promise(async (resolve, reject) => {
             try {
                 const res = await fetch(`${LoginWithEmailAndPass}`, {
