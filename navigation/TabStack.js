@@ -16,10 +16,12 @@ const TabStack =({route})=> {
                 activeTintColor: '#FFFFFF',
                 inactiveTintColor: '#F8F8F8',
                 style: {
-                    backgroundColor: '#633689',
+                    backgroundColor: '#e63946',
+                    height: 90,
                 },
                 labelStyle: {
                     textAlign: 'center',
+                    fontSize:23,
                 },
                 indicatorStyle: {
                     borderBottomColor: '#87B56A',
@@ -32,7 +34,7 @@ const TabStack =({route})=> {
                 options={{
                     tabBarLabel: 'Home',
                     tabBarIcon: () => (
-                        <MaterialCommunityIcons name="home" color="black" size={24} />
+                        <MaterialCommunityIcons name="home" color="black" size={32} />
                     ),
                 }}>
                 </Tab.Screen>
@@ -40,9 +42,9 @@ const TabStack =({route})=> {
                 name="Games"
                 component={Games}
                 options={{
-                    tabBarLabel: 'Updates',
+                    tabBarLabel: 'Games',
                     tabBarIcon: ({ color }) => (
-                        <MaterialCommunityIcons name="bell" color={color} size={24} />
+                        <MaterialCommunityIcons name="basketball" color={color} size={32} />
                     ),
                 }}
             />
