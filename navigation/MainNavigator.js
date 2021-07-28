@@ -1,4 +1,18 @@
-// import React, { Component } from 'react';
+import React, { Component } from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
+import StackNavigation from './StackNavigation';
+import { StatBallContext } from '../context';
+import { useState, useEffect } from 'react/cjs/react.development';
+import TabStack from './TabStack';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import Login from '../Pages/AppAuth/Login';
+import Register from '../Pages/AppAuth/Register';
+import Home from '../Pages/AppHome/Home';
+import { Games } from '../Pages/AppHome/Games';
+
+
+
 // import { TouchableOpacity, View, StatusBar } from 'react-native';
 // import { NavigationContainer } from '@react-navigation/native';
 // import { createStackNavigator } from '@react-navigation/stack';
@@ -17,76 +31,50 @@
 // const HomeStack = createStackNavigator();
 // const Tab = createBottomTabNavigator();
 
-// const MainNavigator = (navigation, route) => {
+const MainNavigator = (navigation, route) => {
+    const StackMain = createStackNavigator();
 
-//     const user = false;
+     const StackLoggedIn =(
+            <NavigationContainer>
+                <StackMain.Navigator >
+                    <StackMain.Screen name='TabStack' component={TabStack} />
+                </StackMain.Navigator>
+            </NavigationContainer>
+    
+        );
 
+        const StackAuthentication =(
+            <NavigationContainer>
+                <StackMain.Navigator >
+                <StackMain.Screen name='Login' component={Login} options={{headerShown:false}}/>
+                <StackMain.Screen name='Register' component={Register} options={{headerShown:false}} />
+                <StackMain.Screen name='TabStack' component={TabStack} options={{headerShown:false}}/>
+                <StackMain.Screen name='Home' component={Home} />
+                <StackMain.Screen name='Games' component={Games} />
+                </StackMain.Navigator>
+            </NavigationContainer>
+    
+        );
 
-//     // const Home1 = (
-//     //     <Tab.Navigator>
-//     //         <Tab.Screen name="Home" component={HomeImage} />
-//     //         <Tab.Screen name="Games" component={Games} />
-//     //     </Tab.Navigator>
-//     // )
+    const [data, setData] = useState(null);
 
-//     //Authentication
-//     const defaultScreens = (
-//         <>
-//             <Stack.Screen
-//                 name="Login"
-//                 component={Login}
-//                 options={{ headerShown: false }}
-//             />
-//             <Stack.Screen
-//                 name="Register"
-//                 component={Register}
-//                 options={{ headerShown: false }}
-//             />
+    const readUserFromStorage = async () => {
+        const item = await AsyncStorage.getItem('user');
+        setData(item);
+      };
 
-//             <Stack.Screen
-//                 name="Home1"
-//                 component={HomeImage}
-//                 options={{
-//                     headerShown: false,
+      useEffect(() => {
+        readUserFromStorage();
+      }, [])
 
-//                 }}
-//             />
-
-//         </>
-
-
-//     );
-
-
-//     //Main Tab Screen
-//     const LoggedInNavigator = (
-//         <>
-//             <HomeStack.Screen
-//                 name="Home1"
-//                 component={Home1}
-//                 options={{
-//                     headerShown: false,
-
-//                 }}
-//             />
-//             {/* { <HomeStack.Screen
-//                 name="HomeImage"
-//                 component={HomeImage}
-//             /> */}
-//         </>
-//     );
-
-
-
-//     return (
-//         <Stack.Navigator>
-
-//             {user ? LoggedInNavigator : defaultScreens}
-
-//         </Stack.Navigator>
-//     )
-// }
-// export default MainNavigator;
+    return (
+        <>
+            {data !== null ? StackLoggedIn : StackAuthentication}
+            
+        </>
+    )
+}
+export default MainNavigator;
 
 
 

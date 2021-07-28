@@ -3,9 +3,7 @@ import { Text, View, StyleSheet, FlatList, ScrollView  } from "react-native";
 import { TouchableOpacity} from "react-native-gesture-handler";
 import { AntDesign } from "@expo/vector-icons";
 import { useState, useEffect,  } from "react";
-import PlayerRow from '../components/PlayerList';
-import PlayerList from "../components/PlayerList";
-import user from "../handler/user";
+import {StatBallContext} from '../context';
 
 
 
@@ -17,7 +15,7 @@ const Item = ({ item, onPress, backgroundColor, textColor }) => (
 
 
 export const PlayerTeam = ({route, navigation,data}) => {
-
+  const {user} = React.useContext(StatBallContext);
   const [selectedId, setSelectedId] = useState(null);
   
   const DATA = [
@@ -49,23 +47,17 @@ export const PlayerTeam = ({route, navigation,data}) => {
     );
   };
 
-  
-
-
-  console.log("data from Home= ", data);
   const [playerList,setPlayerList] = useState([]);
 
   // useEffect(async () => {
   //   setPlayerList(data);
   // },[])
-
-  console.log('PlayerTeam',data)
   
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.userText}>Your Team!</Text>
+        <Text style={styles.userText}>Welcome {user.fullName}</Text>
 
         <TouchableOpacity>
           <AntDesign name="pluscircle" size={54} color="white" />

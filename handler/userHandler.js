@@ -2,7 +2,7 @@ const RegisterURL = "https://localhost:44324/api/user/Register"
 const LoginURL = "https://localhost:44324/api/player/Login"
 const LoginWithEmailAndPass = "https://localhost:44324/api/user/Login"
 
-export default class user {
+export default class userHandler {
 
     static register(email, fullName, password, createdAt) {
         console.log(email + " " + fullName + " " + password + " " + createdAt)

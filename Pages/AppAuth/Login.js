@@ -2,13 +2,13 @@ import { useState, useEffect, useContext } from 'react'
 import React from 'react';
 import { Text, TextInput, View, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native'
 import BackGImg from '../../Images/backGimg.png'
-
-
-import user from '../../handler/user';
+import { StatBallContext } from '../../context';
+import userHandler from '../../handler/userHandler'
 import AsyncStorage from '@react-native-community/async-storage';
+import StackNavigation from '../../navigation/StackNavigation';
 
 
-const storeData = async (value) => {
+const setAsyncStorageData = async (value) => {
   try {
     const jsonValue = JSON.stringify(value)
     await AsyncStorage.setItem('user', jsonValue)
@@ -17,12 +17,17 @@ const storeData = async (value) => {
   }
 }
 
-export const Login = ({ navigation, route, data }) => {
+const readUserFromStorage = async () => {
+  const item = await AsyncStorage.getItem('user');
+  console.log('item=', item);
+
+};
+
+export const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [players, setPlayers] = useState([]);
-
-
+  const { setUser } = React.useContext(StatBallContext);
+  const [data, setData] = useState("");
   // const GetPlayers = async (email,password) => {
   //   // try{
   //   const requestOptions = {
@@ -42,8 +47,11 @@ export const Login = ({ navigation, route, data }) => {
   // setPlayers(data);
   // };
 
+  useEffect(() => {
+  }, [])
+
   const userLogin = async () => {
-    let data = await user.loginWithEmailAndPass(email, password);
+    let data = await userHandler.loginWithEmailAndPass(email, password);
     if (data === null) {
       console.log('innn')
       alert('boom!')
@@ -51,7 +59,8 @@ export const Login = ({ navigation, route, data }) => {
     }
     console.log('userLogin', data)
 
-    storeData(data)
+    setAsyncStorageData(data)
+    setUser(data)
     navigation.navigate('TabStack')
   }
 

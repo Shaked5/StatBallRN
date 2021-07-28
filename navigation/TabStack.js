@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Home from '../Pages/AppHome/Home';
-import { Games } from '../Pages/Games';
+import { Games } from '../Pages/AppHome/Games';
 
 
 
@@ -40,7 +40,7 @@ const TabStack =({route})=> {
                 name="Games"
                 component={Games}
                 options={{
-                    tabBarLabel: 'Updates',
+                    tabBarLabel: 'Games',
                     tabBarIcon: ({ color }) => (
                         <MaterialCommunityIcons name="bell" color={color} size={24} />
                     ),

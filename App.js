@@ -5,12 +5,16 @@ import { View } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 
 import StackNavigation from './navigation/StackNavigation';
+import { StatBallProvider } from './context';
+import MainNavigator from './navigation/MainNavigator';
 
 
 export const App = () => {
   return (
     // <NavigationContainer>
-      <StackNavigation />
+    <StatBallProvider>
+      <MainNavigator/>
+    </StatBallProvider>
     // {/* </NavigationContainer> */}
   );
 }

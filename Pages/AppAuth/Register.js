@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react'
 import React from 'react';
 import { Text, TextInput, View, StyleSheet, TouchableOpacity, ImageBackground} from 'react-native'
 import { AsyncStorage } from '@react-native-community/async-storage';
-import user from '../../handler/user'
 import BackGImg from '../../Images/backGimg.png'
+import userHandler from '../../handler/userHandler';
 
 
 const image = { uri: 'https://images-na.ssl-images-amazon.com/images/I/71tdJLduL9L._AC_SX466_.jpg' }
@@ -17,18 +17,18 @@ export const Register = ({navigation}) => {
  
 
   const handleRegister = async () => {
+    if(email===null || password === null){
+      return;
+    }
     let date = new Date();
     let createdAt = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
     console.log(createdAt)
     console.log(email)
     console.log(password)
     console.log(fullName)
-    const res = await user.register(email, password, fullName, createdAt)
-
-    //save user in async storage
-    storeData(res)
+    const res = await userHandler.register(email, password, fullName, createdAt)
     //navigate to Home screen
-    navigation.navigate('TabStack')
+    navigation.navigate('Login')
   }
 
  
