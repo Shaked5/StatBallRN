@@ -106,7 +106,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundImage: 'https://www.crushpixel.com/big-static15/preview4/perspective-basketball-court-floor-with-2133912.jpg'
   },
   logo: {
     fontWeight: "bold",

@@ -5,9 +5,20 @@ import React from "react";
 import { Text, View, StyleSheet, TouchableOpacity, ImageBackground } from "react-native";
 
 import PlayerTeam from "../PlayerTeam";
+<<<<<<< HEAD
 import { createStackNavigator } from '@react-navigation/stack';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import {StatBallContext} from '../../context';
+=======
+import Home1 from '../../navigation/MainNavigator';
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from '@react-navigation/stack';
+import { useAsyncStorage } from '@react-native-async-storage/async-storage';
+import HomeImage from "../../components/HomeImage";
+
+
+
+>>>>>>> 7ed9f38e2205bbe40948ee7030354c7632826ce1
 
 
 export const Home = () => {
@@ -32,8 +43,14 @@ export const Home = () => {
   const GamesStack = createStackNavigator();
   console.log('after set value= ', value);
   return (
+<<<<<<< HEAD
     <View style={{ flex: 1 }} >
       <PlayerTeam />
+=======
+    <View style={styles.centeredView} >
+      <PlayerTeam/>
+      <HomeImage/>
+>>>>>>> 7ed9f38e2205bbe40948ee7030354c7632826ce1
     </View>
   );
 };
@@ -41,15 +58,12 @@ export const Home = () => {
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
+    flexDirection:'row',
     justifyContent: "center",
-    alignItems: "center",
-    marginRight: "60%",
-    backgroundColor: "black",
+    
   },
-  icon: {
-    position: "absolute",
-    marginTop: "10%",
-
-  }
+  PlayerTeam:{
+    marginLeft:50,
+  },
 });
 export default Home;
