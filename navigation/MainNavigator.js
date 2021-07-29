@@ -12,32 +12,13 @@ import Home from '../Pages/AppHome/Home';
 import { Games } from '../Pages/AppHome/Games';
 
 
-
-// import { TouchableOpacity, View, StatusBar } from 'react-native';
-// import { NavigationContainer } from '@react-navigation/native';
-// import { createStackNavigator } from '@react-navigation/stack';
-// import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-// import Login from '../Pages/AppAuth/Login';
-// import Register from '../Pages/AppAuth/Register';
-// import Home from '../Pages/AppHome/Home';
-
-// import PlayerTeam from '../Pages/PlayerTeam';
-// import { not } from 'react-native-reanimated';
-// import HomeImage from '../components/HomeImage';
-// import { Games } from '../Pages/Games';
-
-
-// const Stack = createStackNavigator();
-// const HomeStack = createStackNavigator();
-// const Tab = createBottomTabNavigator();
-
 const MainNavigator = (navigation, route) => {
     const StackMain = createStackNavigator();
-
+    // console.log("route params", route.params)
      const StackLoggedIn =(
             <NavigationContainer>
                 <StackMain.Navigator >
-                    <StackMain.Screen name='TabStack' component={TabStack} />
+                    <StackMain.Screen name='TabStack' component={TabStack} options={{headerShown:false}}/>
                 </StackMain.Navigator>
             </NavigationContainer>
     

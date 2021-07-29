@@ -17,7 +17,7 @@ export const Register = ({navigation}) => {
  
 
   const handleRegister = async () => {
-    if(email===null || password === null){
+    if(email===null || password === null || fullName === null){
       return;
     }
     let date = new Date();
@@ -26,7 +26,7 @@ export const Register = ({navigation}) => {
     console.log(email)
     console.log(password)
     console.log(fullName)
-    const res = await userHandler.register(email, password, fullName, createdAt)
+    const res = await userHandler.register(email, fullName, password, createdAt)
     //navigate to Home screen
     navigation.navigate('Login')
   }

@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View, StyleSheet, FlatList, ScrollView  } from "react-native";
 import { TouchableOpacity} from "react-native-gesture-handler";
 import { AntDesign } from "@expo/vector-icons";
-import { useState, useEffect,  } from "react";
+import { useState, useEffect} from "react";
 
 
 const Item = ({ item, onPress, backgroundColor, textColor }) => (
@@ -44,7 +44,6 @@ export const TeamGames = ({route, navigation,data}) => {
       />
     );
   };
-  const [playerList,setPlayerList] = useState([]);
 
   // useEffect(async () => {
   //   setPlayerList(data);

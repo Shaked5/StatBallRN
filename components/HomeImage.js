@@ -1,86 +1,41 @@
 import React from "react";
-import {
-  ImageBackground,
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { ImageBackground, View, Text, StyleSheet } from "react-native";
 import { Modal } from "react-native-paper";
 import basketBG from "../Images/backgroundLogin.jpg";
 import { MaterialIcons } from "@expo/vector-icons";
+import AddPlayerForm from "./AddPlayerForm";
 
-<<<<<<< HEAD
-// const HomeImage = () => {
-//     return (
-//         <View style={styles.container}>
-
-//             <PlayerTeam />
-//             <View style={styles.screenLeft}>
-//                 <Text>Statistics</Text>
-//             </View>
-//         </View>
-//     )
-// }
-
-// export default HomeImage
-
-
-
-// const styles = StyleSheet.create({
-//     container: {
-//         flex: 1,
-//         flexDirection:'row',
-//     },
-//     screenLeft:{
-//         flex:2,
-//         alignItems:'center',
-//         paddingTop:'30%',
-//         height: '100%',
-//         backgroundColor:'lightgreen',
-
-//     },
-//     viewRight:{
-       
-//     }
-
-
-// });
-=======
 const HomeImage = () => {
   const [openModal, setOpenModal] = React.useState(false);
 
   return (
     <View style={styles.container}>
       <ImageBackground source={basketBG} style={styles.backgroundImage}>
-        <View style={styles.buttonContainer}>
-          
-        <Modal visible={openModal} animationType="slide">
-            <View styles={styles.modalContent}>
-            <TouchableOpacity>
-              <MaterialIcons
-                name="Close"
-               style={styles.modalButton}
-               size={44}
-               color="white"
-                onPress={() => setOpenModal(false)}
-             />
-          </TouchableOpacity>
-              <Text>hello from modal!</Text>
-            </View>
-          </Modal>
-
-     
-          <TouchableOpacity>
+        <View style={styles.centeredView}>
+          <View style={styles.buttonContainer}>
             <MaterialIcons
               name="add"
-              style={styles.modalButton}
+              style={styles.modalToggle}
               size={44}
               color="white"
               onPress={() => setOpenModal(true)}
             />
-          </TouchableOpacity>
+            <Text style={styles.text}>Add Player</Text>
+          </View>
 
+          <Modal visible={openModal} animationType="slide" transparent={true}>
+            <View style={styles.modalView}>
+              {/*  inside modal */}
+              <MaterialIcons
+                name="close"
+                size={44}
+                color="white"
+                style={styles.modalClose}
+                onPress={() => setOpenModal(false)}
+              />
+              <AddPlayerForm />
+            </View>
+          </Modal>
         </View>
       </ImageBackground>
     </View>
@@ -93,24 +48,31 @@ const styles = StyleSheet.create({
   defContiner: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
-    hight: "100%",
   },
   container: {
     flex: 3,
     justifyContent: "center",
     alignItems: "center",
   },
-  buttonContainer:{
-    flex:1,
+  buttonContainer: {
+    marginBottom:'95%',
+    backgroundColor:'black',
     flexDirection:'row',
-    padding:25,
-    
+    borderRadius:30,
+    padding:5,
   },
 
-  screenLeft: {
-    backgroundColor: "lightgreen",
+   
+    
+    // flexDirection: "row",
+    // padding: 25,
+    // backgroundColor:'black',
+    // borderRadius:50,
+
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   backgroundImage: {
     flex: 1,
@@ -121,18 +83,43 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
-    fontSize: 42,
-    lineHeight: 84,
+    fontSize: 20,
+    lineHeight: 20,
     fontWeight: "bold",
     textAlign: "center",
-    backgroundColor: "#000000c0",
+    backgroundColor: "black",
+    borderRadius:50,
+    padding:20,
+    
   },
-  modalButton: {
-    padding:5,
-    marginBottom: 10,
+
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    paddingBottom: 50,
+    paddingTop: 30,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    hight: "100%",
+  },
+  modalToggle: {
     borderRadius: 25,
     backgroundColor: "black",
+    padding: 5,
+    marginTop:5,
   },
-  modalContent: {},
+  modalClose: {
+    alignSelf: "center",
+    hight: "100%",
+    borderRadius: 25,
+    padding: 5,
+    backgroundColor: "black",
+  },
 });
->>>>>>> 7ed9f38e2205bbe40948ee7030354c7632826ce1

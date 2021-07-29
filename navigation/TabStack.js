@@ -17,7 +17,7 @@ const TabStack =({route})=> {
                 inactiveTintColor: '#F8F8F8',
                 style: {
                     backgroundColor: '#e63946',
-                    height: 90,
+                    height: 70,
                 },
                 labelStyle: {
                     textAlign: 'center',

@@ -8,7 +8,7 @@ function StatBallProvider({ children }) {
     const [Games, setGames] = React.useState(null);
 
     const value = { user, setUser, players, setPlayers, Games, setGames };
-
+    console.log("context - ",value)
     return <StatBallContext.Provider value={value}>{children}</StatBallContext.Provider>;
 
 }

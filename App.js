@@ -7,13 +7,14 @@ import { NavigationContainer } from '@react-navigation/native';
 import StackNavigation from './navigation/StackNavigation';
 import { StatBallProvider } from './context';
 import MainNavigator from './navigation/MainNavigator';
-
+import Toast from 'react-native-toast-message';
 
 export const App = () => {
   return (
     // <NavigationContainer>
     <StatBallProvider>
       <MainNavigator/>
+      <Toast ref={(ref) => Toast.setRef(ref)} />
     </StatBallProvider>
     // {/* </NavigationContainer> */}
   );

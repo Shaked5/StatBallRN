@@ -1,141 +1,104 @@
 import React from "react";
-import { Text, View, StyleSheet, FlatList, ScrollView  } from "react-native";
-import { TouchableOpacity} from "react-native-gesture-handler";
-import { MaterialIcons } from "@expo/vector-icons";
-import { useState, useEffect,  } from "react";
-<<<<<<< HEAD
-import {StatBallContext} from '../context';
-=======
-import PlayerRow from '../components/PlayerList';
-import PlayerList from "../components/PlayerList";
-import user from "../handler/user";
+import { Text, View, StyleSheet, FlatList, ScrollView, Button } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { useState, useEffect, useContext } from "react";
 import { Modal } from "react-native-paper";
->>>>>>> 7ed9f38e2205bbe40948ee7030354c7632826ce1
+import { StatBallContext } from '../context';
+import userHandler from "../handler/userHandler";
+import { useAsyncStorage } from '@react-native-async-storage/async-storage';
+import { retrieveAsyncStorageData, removeAsyncStorageData } from '../handler/storage'
+
+import { AntDesign } from '@expo/vector-icons';
 
 
-export const PlayerTeam = ({route, navigation,data}) => {
+export const PlayerTeam = ({ route, navigation }) => {
 
-
-<<<<<<< HEAD
-export const PlayerTeam = ({route, navigation,data}) => {
-  const {user} = React.useContext(StatBallContext);
-=======
-
->>>>>>> 7ed9f38e2205bbe40948ee7030354c7632826ce1
+  const [name, setName] = useState("");
   const [selectedId, setSelectedId] = useState(null);
-  
-  
-  const DATA = [
-    {
-      id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-      title: "First Item",
-    },
-    {
-      id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-      title: "Second Item",
-    },
-    {
-      id: "58694a0f-3da1-471f-bd96-145571e29d72",
-      title: "Third Item",
-    },
-    {
-      id: "58694a0f-3da1-471f-bd96-145571e29d72",
-      title: "forth Item",
-    },
-    {
-      id: "58694a0f-3da1-471f-bd96-145571e29d72",
-      title: "five Item",
-    },
-    {
-      id: "58694a0f-3da1-471f-bd96-145571e29d72",
-      title: "six Item",
-    },
-    {
-      id: "58694a0f-3da1-471f-bd96-145571e29d72",
-      title: "seven Item",
-    },
-  ];
+  const { getItem, setItem } = useAsyncStorage('user');
+  const [playersList, setPlayerList] = useState([]);
+  const [visible, setVisible] = useState(false);
 
 
+  useEffect(() => {
+    getData();
+    // let data = JSON.parse(getItem());
+    // console.log("getItem",data)
+    // console.log(players);
+  }, [])
+
+  const getData = async () => {
+    let data = await retrieveAsyncStorageData('user')
+    setName(data.fullName)
+    if (data !== undefined && data !== null) {
+      let getPlayers = await userHandler.GetPlayersById(data.userId)
+      setPlayerList(getPlayers);
+    }
+  }
+
+  const btnLogOut = () => {
+    removeAsyncStorageData('user');
+    window.location.reload()
+  };
   
+
+
   const renderItem = ({ item }) => {
-    const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#fffff";
-    const color = item.id === selectedId ? 'white' : 'black';
-
+    console.log('item.id=',item.playerId);
+    const backgroundColor = item.playerId === selectedId ? "#d62828" : "#fffff";
+    const color = item.playerId === selectedId ? 'white' : 'black';
     return (
       <Item
         item={item}
-        onPress={() => setSelectedId(item.id)}
+        onPress={() => setSelectedId(item.playerId)}
         backgroundColor={{ backgroundColor }}
         textColor={{ color }}
-        
+
       />
     );
   };
 
-<<<<<<< HEAD
-=======
-  
 
   const Item = ({ item, onPress, backgroundColor, textColor }) => (
     <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
-      <Text style={[styles.title, textColor]}>{item.title}</Text>
+      <Text style={styles.shirtNumber}>{item.shirtNumber}</Text>
+      {/* <View style={styles.rowDir}> */}
+      <View style={styles.detailsSection}>
+        <Text style={[styles.title, textColor]}>{item.fName} {item.lName}</Text>
+        <Text style={styles.position}>{item.position}</Text>
+        <Text style={styles.prop}>Age: {item.age} Height: {item.height}</Text>
+      </View>
+      {/* </View> */}
     </TouchableOpacity>
   );
-  
 
-  console.log("data from Home= ", data);
->>>>>>> 7ed9f38e2205bbe40948ee7030354c7632826ce1
-  const [playerList,setPlayerList] = useState([]);
 
-  // useEffect(async () => {
-  //   setPlayerList(data);
-  // },[])
-<<<<<<< HEAD
-  
-=======
-
-  console.log('PlayerTeam',data)
->>>>>>> 7ed9f38e2205bbe40948ee7030354c7632826ce1
 
   return (
     <View style={styles.container}>
 
       <View style={styles.header}>
-<<<<<<< HEAD
-        <Text style={styles.userText}>Welcome {user.fullName}</Text>
+        <Text style={styles.userText}>Welcome {name}</Text>
 
-        <TouchableOpacity>
-=======
-        <Text style={styles.userText}>Your Team!</Text>
-      
-  
-        {/* <TouchableOpacity onPress={()=> setShowModal(visible)}>
-     
->>>>>>> 7ed9f38e2205bbe40948ee7030354c7632826ce1
-          <AntDesign name="pluscircle" size={54} color="white" />
-        </TouchableOpacity> */}
+        <TouchableOpacity onPress={btnLogOut}>
+          <View>
+            <AntDesign name="logout" size={30} color="black" />
+          </View>
+        </TouchableOpacity>
+
       </View>
       <View style={{ flex: 10, backgroundColor: "#fff" }}>
         <ScrollView >
-   
-        <FlatList
-         data={DATA}
-         renderItem={renderItem}
-         keyExtractor={(item) => item.id}
-         extraData={selectedId}
-        
-        />
-        </ScrollView>
-        {/* {data.map((player,key) =>{
-          return(
-            <PlayerList key={key} player={player} />
-          )
-        })} */}
-       {/* {route.params != undefined ?route.params.stam:"...."} */}
-      
+          <FlatList
+            data={playersList}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.playerId}
+            extraData={selectedId}
 
+          />
+        </ScrollView>
       </View>
+
     </View>
   );
 };
@@ -146,6 +109,13 @@ const styles = StyleSheet.create({
     flex: 2,
     backgroundColor: "#e63946",
     width: "40%",
+  },
+  containerBtnLogOut: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor:'gray'
   },
   header: {
     flex: 1,
@@ -170,43 +140,49 @@ const styles = StyleSheet.create({
     fontSize: '25px',
   },
   item: {
-    borderColor:'black',
-    marginTop:20,
-    padding: 40,
-    marginVertical: 8,
-    marginHorizontal: 16,
+    flex: 1,
+    flexDirection: 'row',
+    borderColor: 'black',
+    margin: 0,
+    padding: 10,
+  },
+  shirtNumber: {
+    flex: 0.1,
+    fontSize: 25,
+    fontWeight: 700,
+
+    textAlign: 'center',
+    alignSelf: 'center'
+  },
+  detailsSection: {
+    flex: 0.8,
+    flexDirection: 'row',
+    margin: 10
   },
   title: {
-    fontSize: 32,
+    fontSize: 20,
+    fontWeight: 700,
   },
-
-  modalButton:{
-    marginBottom:10,
-    borderWidth:1,
-    borderRadius:25,
-    backgroundColor:'black',
+  position: {
+    fontSize: 18,
+    padding: 5,
+    margin: 0,
   },
-  modalContent:{
+  prop: {
+    display: 1,
+    fontSize: 18,
+    padding: 5,
+    fontWeight: 400,
+    color: '#333',
 
   },
-
+  rowDir: {
+    flexDirection: 'row',
+  },
+  modalButton: {
+    marginBottom: 10,
+    borderWidth: 1,
+    borderRadius: 25,
+    backgroundColor: 'black',
+  },
 });
-
-   {/* {players.map((user,index) => {
-            return(
-            <View key={index} style={styles.mapView}>
-                 Name:{user.userId}
-                  Email:{user.email}
-                  Fullname:{user.fullName}
-              </View>)
-          } )} */}
-
-            {/* {players1.map((user, index) => {
-          return (
-            <View key={index} style={styles.mapView}>
-              <Text style={styles.mapText}>ID: {user.playerId}</Text>
-              <Text style={styles.mapText}>Name: {user.fName}</Text>
-              <Text style={styles.mapText}>last: {user.lName}</Text>
-            </View>
-          )
-        })} */}

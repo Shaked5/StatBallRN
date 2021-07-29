@@ -10,6 +10,7 @@ import StackNavigation from '../../navigation/StackNavigation';
 
 const setAsyncStorageData = async (value) => {
   try {
+    // console.log()
     const jsonValue = JSON.stringify(value)
     await AsyncStorage.setItem('user', jsonValue)
   } catch (e) {
@@ -48,22 +49,29 @@ export const Login = ({ navigation }) => {
   // };
 
   useEffect(() => {
+
   }, [])
 
   const userLogin = async () => {
+
+    if (email === '' || password === '') {
+      alert('Please fill all fields!')
+      return;
+    }
     let data = await userHandler.loginWithEmailAndPass(email, password);
     if (data === null) {
-      console.log('innn')
-      alert('boom!')
+      alert('Wrong email or pass!')
       return;
     }
     console.log('userLogin', data)
 
     setAsyncStorageData(data)
     setUser(data)
-    navigation.navigate('TabStack')
+    // console.log("Login data=",data)
+    navigation.navigate('TabStack', {
+      data: data
+    })
   }
-
   return (
     <View style={{ flex: 1 }}>
       <ImageBackground source={BackGImg} style={styles.backgroundImage}>
