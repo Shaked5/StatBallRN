@@ -6,7 +6,8 @@ import Toast from "react-native-toast-message";
 import { Picker } from "@react-native-picker/picker";
 import { StatBallContext } from "../context";
 
-const AddPlayerForm = (props) => {
+const UpdatePlayerForm = () => {
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [age, setAge] = useState("");
@@ -15,54 +16,68 @@ const AddPlayerForm = (props) => {
   const [height, setHeight] = useState("");
   const {EPlayer} = useContext(StatBallContext);
 
+//   const addPlayerToData = async () => {
+//     console.log("onPress");
+//     let data = await retrieveAsyncStorageData("user");
+//     if (data !== undefined && data !== null) {
+//       if (
+//         firstName === "" ||
+//         lastName === "" ||
+//         shirtNumber === "" ||
+//         position === "" ||
+//         age === "" ||
+//         height === ""
+//       ) {
+//         Toast.show({
+//           position: "bottom",
+//           type: "error",
+//           text1: "Warning",
+//           text2: "Please fill all field",
+//         });
+//         return;
+//       }
+//       let res = await userHandler.AddPlayerById(
+//         data.userId,
+//         firstName,
+//         lastName,
+//         shirtNumber,
+//         position,
+//         age,
+//         height
+//       );
 
-  
-  const addPlayerToData = async () => {
-    console.log("onPress");
-    let data = await retrieveAsyncStorageData("user");
-    let userId= data.userId;
-    if (data !== undefined && data !== null) {
-      if (
-        firstName === "" ||
-        lastName === "" ||
-        shirtNumber === "" ||
-        position === "" ||
-        age === "" ||
-        height === ""
-      ) {
-        Toast.show({
-          position: "top",
-          type: "error",
-          text1: "Warning",
-          text2: "Please fill all field",
-        });
-        return;
-      }
-
-      props.handleAddPlayer({userId,firstName,lastName,shirtNumber,position,age,height})
-      
-    }
-  };
+//       Toast.show({
+//         position: "bottom",
+//         type: "success",
+//         text1: "Message",
+//         text2: "Add a new player completed 👋",
+//       });
+//       setTimeout(() => {
+//         window.location.reload();
+//       }, 4000);
+//       console.log(position);
+//     }
+//   };
 
   return (
     <View style={styles.centeredView}>
-      <Text style={styles.headText}>Add Player Form</Text>
+      <Text style={styles.headText}>Edit Player Form</Text>
       <View style={styles.FormView}>
         <View style={styles.TextInput}>
           <TextInput
             style={styles.input}
             onChangeText={(text) => setFirstName(text)}
-            placeholder="First Name"
+            placeholder={EPlayer.fName}
           />
           <TextInput
             style={styles.input}
             onChangeText={(text) => setLastName(text)}
-            placeholder="Last Name"
+            placeholder={EPlayer.lName}
           />
           <TextInput
             style={styles.input}
             onChangeText={(text) => setShirtNumber(text)}
-            placeholder="Shirt Number"
+            placeholder={EPlayer.shirtNumber}
           />
         </View>
 
@@ -70,12 +85,12 @@ const AddPlayerForm = (props) => {
 
           <Picker
             style={styles.Picker}
-            selectedValue={position}
+            selectedValue={EPlayer.position}
+            
             onValueChange={(itemValue) =>
               setPosition(itemValue)
             }
           >
-            <Picker.Item label="Choose" value="Choose"/>
             <Picker.Item label="Point guard" value="Point guard" />
             <Picker.Item label="Shooting guard" value="Shooting guard" />
             <Picker.Item label="Small forward" value="Small forward" />
@@ -83,19 +98,19 @@ const AddPlayerForm = (props) => {
             <Picker.Item label="Center" value="Center" />
           </Picker>
 
-          <TextInput style={styles.input} onChangeText={text => setAge(text)} placeholder="Age" />
+          <TextInput style={styles.input} placeholder={EPlayer.age}  onChangeText={text => setAge(text)} />
           <TextInput
             style={styles.input}
             onChangeText={(text) => setHeight(text)}
-            placeholder="Height"
+            placeholder={EPlayer.height}
           />
         </View>
         <View style={{ marginLeft: 20 }}>
           <TouchableOpacity
             style={styles.AddPlayerButton}
-            onPress={addPlayerToData}
+            
           >
-            <Text style={styles.buttonText}>Add Player</Text>
+            <Text style={styles.buttonText}>Update Player</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -103,7 +118,7 @@ const AddPlayerForm = (props) => {
   );
 };
 
-export default AddPlayerForm;
+export default UpdatePlayerForm;
 
 const styles = StyleSheet.create({
   centeredView: {
@@ -135,7 +150,7 @@ const styles = StyleSheet.create({
   },
 
   headText: {
-    backgroundColor: "#e63946",
+    backgroundColor: "#70e000",
     textAlign: "center",
     width: "80%",
     fontSize: "20pt",

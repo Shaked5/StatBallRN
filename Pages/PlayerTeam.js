@@ -14,24 +14,25 @@ import HomeImage from "../components/HomeImage";
 
 export const PlayerTeam = ({ route, navigation }) => {
 
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
   const [selectedId, setSelectedId] = useState(null);
   const { getItem, setItem } = useAsyncStorage('user');
-  const [playersList, setPlayerList] = useState([]);
   const [visible, setVisible] = useState(false);
-  const {EPlayer,setEPlayer} = useContext(StatBallContext);
+  const { EPlayer, setEPlayer } = useContext(StatBallContext);
+  const { playersList, setPlayerList } = useContext(StatBallContext);
 
 
   useEffect(() => {
     getData();
-    // let data = JSON.parse(getItem());
-    // console.log("getItem",data)
-    // console.log(players);
+
   }, [])
+
 
   const getData = async () => {
     let data = await retrieveAsyncStorageData('user')
-    setName(data.fullName)
+    if (data === null)
+      return;
+    // setName(data.fullName)
     if (data !== undefined && data !== null) {
       let getPlayers = await userHandler.GetPlayersById(data.userId)
       setPlayerList(getPlayers);
@@ -42,7 +43,7 @@ export const PlayerTeam = ({ route, navigation }) => {
     removeAsyncStorageData('user');
     window.location.reload()
   };
-  
+
 
 
   const renderItem = ({ item }) => {
@@ -60,7 +61,7 @@ export const PlayerTeam = ({ route, navigation }) => {
   };
 
 
-  
+
 
 
   const Item = ({ item, onPress, backgroundColor, textColor }) => (
@@ -71,7 +72,7 @@ export const PlayerTeam = ({ route, navigation }) => {
         <Text style={[styles.title, textColor]}>{item.fName} {item.lName}</Text>
         <Text style={styles.position}>{item.position}</Text>
         <Text style={styles.prop}>Age: {item.age} Height: {item.height}</Text>
-        <TouchableOpacity onPress={()=> setEPlayer(item)}>
+        <TouchableOpacity onPress={() => setEPlayer(item)}>
           <View>
             <AntDesign name="edit" size={24} color="black" />
           </View>
@@ -80,7 +81,7 @@ export const PlayerTeam = ({ route, navigation }) => {
       {/* </View> */}
     </TouchableOpacity>
   );
-{EPlayer !== null && console.log('EPlayer',EPlayer);}
+  { EPlayer !== null && console.log('EPlayer', EPlayer); }
   return (
     <View style={styles.container}>
 
@@ -122,7 +123,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor:'gray'
+    backgroundColor: 'gray'
   },
   header: {
     flex: 1,

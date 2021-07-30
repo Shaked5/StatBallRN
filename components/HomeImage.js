@@ -6,20 +6,16 @@ import { MaterialIcons } from "@expo/vector-icons";
 import AddPlayerForm from "./AddPlayerForm";
 import { StatBallContext } from "../context";
 import PlayerTeam from "../Pages/PlayerTeam";
+import UpdatePlayerForm from '../components/UpdatePlayerForm';
 
-const HomeImage = () => {
+const HomeImage = (props) => {
   const {openModal, setOpenModal} = useContext(StatBallContext);
   const { EPlayer } = useContext(StatBallContext);
 
-  const handleOpenModal = () => {
-    debugger;
-    console.log('hey');
-    setOpenModal(true);
-  }
 
   return (
     <View style={styles.container}>
-      {EPlayer !== null && setOpenModal(true)}
+      {EPlayer !== null ? setOpenModal(true) : console.log('noo')}
       <ImageBackground source={basketBG} style={styles.backgroundImage}>
         <View style={styles.centeredView}>
           <View style={styles.buttonContainer}>
@@ -43,7 +39,7 @@ const HomeImage = () => {
                 style={styles.modalClose}
                 onPress={() => setOpenModal(false)}
               />
-              <AddPlayerForm />
+              <AddPlayerForm handleAddPlayer={(player)=> props.handleAddPlayer(player)} />
             </View>
           </Modal>
            }
@@ -57,7 +53,7 @@ const HomeImage = () => {
                 style={styles.modalClose}
                 onPress={() => setOpenModal(false)}
               />
-              <PlayerTeam />
+              <UpdatePlayerForm />
             </View>
           </Modal> }
         </View>

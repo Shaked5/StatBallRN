@@ -65,14 +65,6 @@ export const TeamGames = ({route, navigation,data}) => {
         
         />
         </ScrollView>
-        {/* {data.map((player,key) =>{
-          return(
-            <PlayerList key={key} player={player} />
-          )
-        })} */}
-       {/* {route.params != undefined ?route.params.stam:"...."} */}
-      
-
       </View>
     </View>
   );
@@ -81,8 +73,8 @@ export default TeamGames;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "red",
+    flex: 2,
+    backgroundColor: "#e63946",
     width: "40%",
     
   },
