@@ -1,15 +1,25 @@
-import React from "react";
-import { ImageBackground, View, Text, StyleSheet } from "react-native";
+import React, { useContext } from "react";
+import { ImageBackground, View, Text, StyleSheet, Button } from "react-native";
 import { Modal } from "react-native-paper";
 import basketBG from "../Images/backgroundLogin.jpg";
 import { MaterialIcons } from "@expo/vector-icons";
 import AddPlayerForm from "./AddPlayerForm";
+import { StatBallContext } from "../context";
+import PlayerTeam from "../Pages/PlayerTeam";
 
 const HomeImage = () => {
-  const [openModal, setOpenModal] = React.useState(false);
+  const {openModal, setOpenModal} = useContext(StatBallContext);
+  const { EPlayer } = useContext(StatBallContext);
+
+  const handleOpenModal = () => {
+    debugger;
+    console.log('hey');
+    setOpenModal(true);
+  }
 
   return (
     <View style={styles.container}>
+      {EPlayer !== null && setOpenModal(true)}
       <ImageBackground source={basketBG} style={styles.backgroundImage}>
         <View style={styles.centeredView}>
           <View style={styles.buttonContainer}>
@@ -22,7 +32,7 @@ const HomeImage = () => {
             />
             <Text style={styles.text}>Add Player</Text>
           </View>
-
+            {EPlayer === null &&
           <Modal visible={openModal} animationType="slide" transparent={true}>
             <View style={styles.modalView}>
               {/*  inside modal */}
@@ -36,6 +46,20 @@ const HomeImage = () => {
               <AddPlayerForm />
             </View>
           </Modal>
+           }
+           {EPlayer !== null &&   <Modal visible={openModal} animationType="slide" transparent={true}>
+            <View style={styles.modalView}>
+              {/*  inside modal */}
+              <MaterialIcons
+                name="close"
+                size={44}
+                color="white"
+                style={styles.modalClose}
+                onPress={() => setOpenModal(false)}
+              />
+              <PlayerTeam />
+            </View>
+          </Modal> }
         </View>
       </ImageBackground>
     </View>
@@ -55,19 +79,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonContainer: {
-    marginBottom:'95%',
-    backgroundColor:'black',
-    flexDirection:'row',
-    borderRadius:30,
-    padding:5,
+    marginBottom: '95%',
+    backgroundColor: 'black',
+    flexDirection: 'row',
+    borderRadius: 30,
+    padding: 5,
   },
 
-   
-    
-    // flexDirection: "row",
-    // padding: 25,
-    // backgroundColor:'black',
-    // borderRadius:50,
+
+
+  // flexDirection: "row",
+  // padding: 25,
+  // backgroundColor:'black',
+  // borderRadius:50,
 
   centeredView: {
     flex: 1,
@@ -88,9 +112,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     backgroundColor: "black",
-    borderRadius:50,
-    padding:20,
-    
+    borderRadius: 50,
+    padding: 20,
+
   },
 
   modalView: {
@@ -113,7 +137,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     backgroundColor: "black",
     padding: 5,
-    marginTop:5,
+    marginTop: 5,
   },
   modalClose: {
     alignSelf: "center",

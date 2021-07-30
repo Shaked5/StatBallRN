@@ -9,6 +9,7 @@ import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import { retrieveAsyncStorageData, removeAsyncStorageData } from '../handler/storage'
 
 import { AntDesign } from '@expo/vector-icons';
+import HomeImage from "../components/HomeImage";
 
 
 export const PlayerTeam = ({ route, navigation }) => {
@@ -18,6 +19,7 @@ export const PlayerTeam = ({ route, navigation }) => {
   const { getItem, setItem } = useAsyncStorage('user');
   const [playersList, setPlayerList] = useState([]);
   const [visible, setVisible] = useState(false);
+  const {EPlayer,setEPlayer} = useContext(StatBallContext);
 
 
   useEffect(() => {
@@ -44,7 +46,6 @@ export const PlayerTeam = ({ route, navigation }) => {
 
 
   const renderItem = ({ item }) => {
-    console.log('item.id=',item.playerId);
     const backgroundColor = item.playerId === selectedId ? "#d62828" : "#fffff";
     const color = item.playerId === selectedId ? 'white' : 'black';
     return (
@@ -59,6 +60,9 @@ export const PlayerTeam = ({ route, navigation }) => {
   };
 
 
+  
+
+
   const Item = ({ item, onPress, backgroundColor, textColor }) => (
     <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
       <Text style={styles.shirtNumber}>{item.shirtNumber}</Text>
@@ -67,13 +71,16 @@ export const PlayerTeam = ({ route, navigation }) => {
         <Text style={[styles.title, textColor]}>{item.fName} {item.lName}</Text>
         <Text style={styles.position}>{item.position}</Text>
         <Text style={styles.prop}>Age: {item.age} Height: {item.height}</Text>
+        <TouchableOpacity onPress={()=> setEPlayer(item)}>
+          <View>
+            <AntDesign name="edit" size={24} color="black" />
+          </View>
+        </TouchableOpacity>
       </View>
       {/* </View> */}
     </TouchableOpacity>
   );
-
-
-
+{EPlayer !== null && console.log('EPlayer',EPlayer);}
   return (
     <View style={styles.container}>
 
