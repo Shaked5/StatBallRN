@@ -9,13 +9,36 @@ import PlayerTeam from "../Pages/PlayerTeam";
 import UpdatePlayerForm from '../components/UpdatePlayerForm';
 
 const HomeImage = (props) => {
-  const {openModal, setOpenModal} = useContext(StatBallContext);
-  const { EPlayer } = useContext(StatBallContext);
+  const {openModal, setOpenModal, EPlayer} = useContext(StatBallContext);
+
+
+
+  // const handleAddPlayer = async (player) => {
+  //   console.log(player);
+  //   let res = await userHandler.AddPlayerById(
+  //     player.userId,
+  //     player.firstName,
+  //     player.lastName,
+  //     player.shirtNumber,
+  //     player.position,
+  //     player.age,
+  //     player.height
+  //   );
+  //   Toast.show({
+  //     position: "top",
+  //     visibilityTime: 4000,
+  //     type: "success",
+  //     text1: "Message",
+  //     text2: "Add a new player completed 👋",
+  //   });
+  //   setIsFirstTime(false)
+  //   let players = await userHandler.GetPlayersById(player.userId)
+  //   setPlayerList(players)
+  // }
 
 
   return (
     <View style={styles.container}>
-      {EPlayer !== null ? setOpenModal(true) : console.log('noo')}
       <ImageBackground source={basketBG} style={styles.backgroundImage}>
         <View style={styles.centeredView}>
           <View style={styles.buttonContainer}>
@@ -35,7 +58,7 @@ const HomeImage = (props) => {
               <MaterialIcons
                 name="close"
                 size={44}
-                color="white"
+                color="red"
                 style={styles.modalClose}
                 onPress={() => setOpenModal(false)}
               />
@@ -43,17 +66,22 @@ const HomeImage = (props) => {
             </View>
           </Modal>
            }
-           {EPlayer !== null &&   <Modal visible={openModal} animationType="slide" transparent={true}>
+           {EPlayer !== null &&   
+           <Modal visible={openModal} animationType="slide" transparent={true}>
             <View style={styles.modalView}>
               {/*  inside modal */}
               <MaterialIcons
                 name="close"
                 size={44}
-                color="white"
+                color="pink"
                 style={styles.modalClose}
-                onPress={() => setOpenModal(false)}
+                onPress={() =>{
+                  console.log("close");  
+                
+                setOpenModal(false);
+              }}
               />
-              <UpdatePlayerForm />
+              <UpdatePlayerForm handleUpdatePlayerById={(player) => props.handleUpdatePlayerById(player)} />
             </View>
           </Modal> }
         </View>

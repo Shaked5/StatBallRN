@@ -18,7 +18,6 @@ const AddPlayerForm = (props) => {
 
   
   const addPlayerToData = async () => {
-    console.log("onPress");
     let data = await retrieveAsyncStorageData("user");
     let userId= data.userId;
     if (data !== undefined && data !== null) {

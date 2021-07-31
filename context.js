@@ -11,7 +11,6 @@ function StatBallProvider({ children }) {
     const [playersList, setPlayerList] = React.useState([]);
 
     const value = { user, setUser, players, setPlayers, Games, setGames, EPlayer, setEPlayer, openModal, setOpenModal, playersList, setPlayerList };
-    console.log("context - ",value)
     return <StatBallContext.Provider value={value}>{children}</StatBallContext.Provider>;
 
 }

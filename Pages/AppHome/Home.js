@@ -11,15 +11,14 @@ import { StatBallContext } from '../../context';
 import HomeImage from "../../components/HomeImage";
 import PlayerTeam from "../PlayerTeam";
 import userHandler from "../../handler/userHandler";
+import { retrieveAsyncStorageData } from "../../handler/storage";
 
 
 
 export const Home = (route) => {
-  console.log("route params", navigator)
-  console.log("route params", route)
   const [value, setValue] = useState('');
   // const { getItem, setItem } = useAsyncStorage('user')
-  const { playerList, setPlayerList } = React.useContext(StatBallContext);
+  const { user , playerList, setPlayerList } = React.useContext(StatBallContext);
   const [isFirstTime, setIsFirstTime] = useState(true);
 
 
@@ -33,7 +32,6 @@ export const Home = (route) => {
 
 
   const handleAddPlayer = async (player) => {
-    console.log(player);
     let res = await userHandler.AddPlayerById(
       player.userId,
       player.firstName,
@@ -55,6 +53,32 @@ export const Home = (route) => {
     setPlayerList(players)
   }
 
+  const handleUpdatePlayerById = async (player) => {
+    console.log(player);
+    let res = await userHandler.UpdatePlayerById(
+      player.playerId,
+      player.fName,
+      player.lName,
+      player.shirtNumber,
+      player.position,
+      player.age,
+      player.height
+    );
+    Toast.show({
+      position: "top",
+      visibilityTime: 4000,
+      type: "success",
+      text1: "Message",
+      text2: "Add a new player completed 👋",
+    });
+    console.log('player after update=',res)
+    console.log('user.userId= ',user.userId);
+    // let findId = await retrieveAsyncStorageData('user')
+    let players = await userHandler.GetPlayersById(user.userId)
+    setPlayerList(players)
+
+  }
+
 
 
 
@@ -65,7 +89,7 @@ export const Home = (route) => {
   return (
     <View style={styles.centeredView} >
       <PlayerTeam />
-      <HomeImage handleAddPlayer={(player) => handleAddPlayer(player)} />
+      <HomeImage handleAddPlayer={(player) => handleAddPlayer(player)} handleUpdatePlayerById={(player) => handleUpdatePlayerById(player)} />
     </View>
   );
 };

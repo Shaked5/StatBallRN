@@ -10,7 +10,6 @@ import StackNavigation from '../../navigation/StackNavigation';
 
 const setAsyncStorageData = async (value) => {
   try {
-    // console.log()
     const jsonValue = JSON.stringify(value)
     await AsyncStorage.setItem('user', jsonValue)
   } catch (e) {
@@ -29,24 +28,7 @@ export const Login = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const { setUser } = React.useContext(StatBallContext);
   const [data, setData] = useState("");
-  // const GetPlayers = async (email,password) => {
-  //   // try{
-  //   const requestOptions = {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify({ email, password })
-  // };
-  //   const response = await fetch(
-  //     `https://localhost:44324/api/player/Login`,requestOptions
-  //   );
-  //   const data = await response.json();
-  //   console.log('GetPlayers',data);
-  //   return data
-  // catch{
-  //   console.log('data = ',data)
-  // }
-  // setPlayers(data);
-  // };
+
 
   useEffect(() => {
 
@@ -63,11 +45,9 @@ export const Login = ({ navigation }) => {
       alert('Wrong email or pass!')
       return;
     }
-    console.log('userLogin', data)
 
-    setAsyncStorageData(data)
+    await setAsyncStorageData(data)
     setUser(data)
-    // console.log("Login data=",data)
     navigation.navigate('TabStack', {
       data: data
     })
@@ -91,9 +71,10 @@ export const Login = ({ navigation }) => {
           </TextInput>
         </View>
         <View>
-          <TouchableOpacity style={styles.loginBtn}>
-            <Text style={styles.loginText} onPress={userLogin}>Login</Text>
+          <TouchableOpacity style={styles.loginBtn} onPress={userLogin}>
+            <Text style={styles.loginText} >Login</Text>
           </TouchableOpacity>
+          
           <TouchableOpacity style={styles.loginBtn} onPress={() => {
             navigation.navigate('Register')
           }}>

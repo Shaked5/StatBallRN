@@ -18,8 +18,7 @@ export const PlayerTeam = ({ route, navigation }) => {
   const [selectedId, setSelectedId] = useState(null);
   const { getItem, setItem } = useAsyncStorage('user');
   const [visible, setVisible] = useState(false);
-  const { EPlayer, setEPlayer } = useContext(StatBallContext);
-  const { playersList, setPlayerList } = useContext(StatBallContext);
+  const { playersList, setPlayerList, setUser, setEPlayer, user, setOpenModal } = useContext(StatBallContext);
 
 
   useEffect(() => {
@@ -39,9 +38,14 @@ export const PlayerTeam = ({ route, navigation }) => {
     }
   }
 
-  const btnLogOut = () => {
-    removeAsyncStorageData('user');
-    window.location.reload()
+  const btnLogOut = async () => {
+    try {
+      await removeAsyncStorageData('user');
+    }
+    catch (ex) {
+      console.error(ex.message);
+    }
+    setUser(null);
   };
 
 
@@ -62,8 +66,6 @@ export const PlayerTeam = ({ route, navigation }) => {
 
 
 
-
-
   const Item = ({ item, onPress, backgroundColor, textColor }) => (
     <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
       <Text style={styles.shirtNumber}>{item.shirtNumber}</Text>
@@ -72,7 +74,11 @@ export const PlayerTeam = ({ route, navigation }) => {
         <Text style={[styles.title, textColor]}>{item.fName} {item.lName}</Text>
         <Text style={styles.position}>{item.position}</Text>
         <Text style={styles.prop}>Age: {item.age} Height: {item.height}</Text>
-        <TouchableOpacity onPress={() => setEPlayer(item)}>
+        <TouchableOpacity onPress={() => {
+          setEPlayer(item);
+          setOpenModal(true)
+        }
+        }>
           <View>
             <AntDesign name="edit" size={24} color="black" />
           </View>
@@ -81,7 +87,6 @@ export const PlayerTeam = ({ route, navigation }) => {
       {/* </View> */}
     </TouchableOpacity>
   );
-  { EPlayer !== null && console.log('EPlayer', EPlayer); }
   return (
     <View style={styles.container}>
 

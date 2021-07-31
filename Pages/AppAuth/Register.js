@@ -22,10 +22,6 @@ export const Register = ({navigation}) => {
     }
     let date = new Date();
     let createdAt = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
-    console.log(createdAt)
-    console.log(email)
-    console.log(password)
-    console.log(fullName)
     const res = await userHandler.register(email, fullName, password, createdAt)
     //navigate to Home screen
     navigation.navigate('Login')

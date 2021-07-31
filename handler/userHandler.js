@@ -3,11 +3,11 @@ const LoginURL = "https://localhost:44324/api/player/Login"
 const LoginWithEmailAndPass = "https://localhost:44324/api/user/Login"
 const GetPlayersById = "https://localhost:44324/api/player"
 const AddPlayerById = "https://localhost:44324/api/player/AddPlayer"
+const UpdatePlayerById = "https://localhost:44324/api/player/UpdatePlayer"
 
 export default class userHandler {
 
     static register(email, fullName, password, createdAt) {
-        console.log(email + " " + fullName + " " + password + " " + createdAt)
         return new Promise(async (resolve, reject) => {
             try {
                 const res = await fetch(`${RegisterURL}`, {
@@ -36,7 +36,6 @@ export default class userHandler {
     }
 
     static login(email, password) {
-        console.log(email + " " + password);
         return new Promise(async (resolve, reject) => {
             try {
                 const res = await fetch(`${LoginURL}`, {
@@ -121,6 +120,39 @@ export default class userHandler {
                     })
                 })
                 console.log(`${AddPlayerById}`, res);
+                const data = await res.json();
+                console.log('data=', data)
+                resolve(data)
+            }
+            catch (error) {
+                reject(error)
+            }
+        })
+    }
+
+
+
+    static UpdatePlayerById(playerId, fName, lName, shirtNumber, position, age, height) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await fetch(`${UpdatePlayerById}`, {
+                    method: 'PUT', 
+                    headers: {
+                        "content-type": "application/json",
+                        "accept": "application/json",
+                        "Access-Control-Allow-Origin": "*"
+                    },
+                    body: JSON.stringify({
+                        playerId,
+                        fName,
+                        lName,
+                        shirtNumber,
+                        position,
+                        age,
+                        height
+                    })
+                })
+                console.log(`${UpdatePlayerById}`, res);
                 const data = await res.json();
                 console.log('data=', data)
                 resolve(data)

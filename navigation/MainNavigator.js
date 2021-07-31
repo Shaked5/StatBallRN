@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import {Text, View} from 'react-native';
+import { Text, View } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import StackNavigation from './StackNavigation';
 import { StatBallContext } from '../context';
-import { useState, useEffect } from 'react/cjs/react.development';
+import { useState, useEffect, useContext } from 'react/cjs/react.development';
 import TabStack from './TabStack';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -15,26 +15,25 @@ import { retrieveAsyncStorageData } from '../handler/storage';
 
 
 const MainNavigator = (navigation, route) => {
-    const [data, setData] = useState();
+    const { user, setUser } = useContext(StatBallContext);
 
     const StackMain = createStackNavigator();
-    // console.log("route params", route.params)
 
     const getUser = async () => {
 
         let user = await retrieveAsyncStorageData('user')
         if (user !== null) {
-            setData(user)
+            setUser(user)
         }
     }
 
     useEffect(() => {
         getUser();
-    }, [])
+    }, []);
 
     const StackLoggedIn = (
         <NavigationContainer>
-            <StackMain.Navigator >
+            <StackMain.Navigator initialRouteName="TabStack">
                 <StackMain.Screen name='TabStack' component={TabStack} options={{ headerShown: false }} />
             </StackMain.Navigator>
         </NavigationContainer>
@@ -43,12 +42,9 @@ const MainNavigator = (navigation, route) => {
 
     const StackAuthentication = (
         <NavigationContainer>
-            <StackMain.Navigator >
+            <StackMain.Navigator initialRouteName="Login">
                 <StackMain.Screen name='Login' component={Login} options={{ headerShown: false }} />
                 <StackMain.Screen name='Register' component={Register} options={{ headerShown: false }} />
-                <StackMain.Screen name='TabStack' component={TabStack} options={{ headerShown: false }} />
-                <StackMain.Screen name='Home' component={Home} />
-                <StackMain.Screen name='Games' component={Games} />
             </StackMain.Navigator>
         </NavigationContainer>
 
@@ -57,7 +53,7 @@ const MainNavigator = (navigation, route) => {
 
     return (
         <>
-            {data !== undefined ? StackLoggedIn : StackAuthentication}
+            {user ? StackLoggedIn : StackAuthentication}
 
         </>
     )

@@ -8,10 +8,10 @@ import { Games } from '../Pages/AppHome/Games';
 
 const Tab = createBottomTabNavigator();
 
-const TabStack =({route})=> {
+const TabStack = ({ route }) => {
     return (
         <Tab.Navigator
-           
+            initialRouteName="Home"
             tabBarOptions={{
                 activeTintColor: '#FFFFFF',
                 inactiveTintColor: '#F8F8F8',
@@ -21,7 +21,7 @@ const TabStack =({route})=> {
                 },
                 labelStyle: {
                     textAlign: 'center',
-                    fontSize:23,
+                    fontSize: 23,
                 },
                 indicatorStyle: {
                     borderBottomColor: '#87B56A',
@@ -37,7 +37,7 @@ const TabStack =({route})=> {
                         <MaterialCommunityIcons name="home" color="black" size={32} />
                     ),
                 }}>
-                </Tab.Screen>
+            </Tab.Screen>
             <Tab.Screen
                 name="Games"
                 component={Games}
@@ -57,7 +57,6 @@ const TabStack =({route})=> {
                         <MaterialCommunityIcons name="account" color={color} size={24} />
                     ),
                 }}>
-                {props => <Profile {...props} user={route.params.user} />}
             </Tab.Screen> */}
 
 

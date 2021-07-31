@@ -8,7 +8,7 @@ import GamesImage from '../../components/GamesImage'
 export const Games = () => {
 
     useEffect(() => {
-        console.log('in useEffect in Games =',);
+        
     }, [])
 
     return (
