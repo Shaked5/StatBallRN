@@ -7,7 +7,6 @@ import { StatBallContext } from '../context';
 import userHandler from "../handler/userHandler";
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import { retrieveAsyncStorageData, removeAsyncStorageData } from '../handler/storage'
-
 import { AntDesign } from '@expo/vector-icons';
 import HomeImage from "../components/HomeImage";
 
@@ -25,6 +24,11 @@ export const PlayerTeam = ({ route, navigation }) => {
     getData();
 
   }, [])
+
+  useEffect(() => {
+    // getData();
+
+  }, [playersList])
 
 
   const getData = async () => {
@@ -47,6 +51,20 @@ export const PlayerTeam = ({ route, navigation }) => {
     }
     setUser(null);
   };
+
+  const handleDeletePlayerById = async (playerId) => {
+    try {
+      if (playerId !== null) {
+        let res = await userHandler.DeletePlayerById(playerId);
+        console.log('res=', res);
+        let players = await userHandler.GetPlayersById(user.userId);
+        setPlayerList(players)
+      }
+    }
+    catch(ex){
+      console.error(ex.message);
+    }
+  }
 
 
 
@@ -81,6 +99,18 @@ export const PlayerTeam = ({ route, navigation }) => {
         }>
           <View>
             <AntDesign name="edit" size={24} color="black" />
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.deleteBtn} onPress={() => {
+          console.log('delete');
+          handleDeletePlayerById(item.playerId)
+
+        }
+        }>
+
+          <View>
+            <AntDesign name="delete" size={24} color="black" />
           </View>
         </TouchableOpacity>
       </View>
@@ -197,5 +227,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 25,
     backgroundColor: 'black',
+  },
+  deleteBtn: {
+    marginLeft: '2%'
   },
 });

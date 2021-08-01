@@ -5,7 +5,7 @@ import BackGImg from '../../Images/backGimg.png'
 import { StatBallContext } from '../../context';
 import userHandler from '../../handler/userHandler'
 import AsyncStorage from '@react-native-community/async-storage';
-import StackNavigation from '../../navigation/StackNavigation';
+
 
 
 const setAsyncStorageData = async (value) => {

@@ -4,6 +4,7 @@ const LoginWithEmailAndPass = "https://localhost:44324/api/user/Login"
 const GetPlayersById = "https://localhost:44324/api/player"
 const AddPlayerById = "https://localhost:44324/api/player/AddPlayer"
 const UpdatePlayerById = "https://localhost:44324/api/player/UpdatePlayer"
+const DeletePlayerById = "https://localhost:44324/api/player/DeletePlayer"
 
 export default class userHandler {
 
@@ -153,6 +154,31 @@ export default class userHandler {
                     })
                 })
                 console.log(`${UpdatePlayerById}`, res);
+                const data = await res.json();
+                console.log('data=', data)
+                resolve(data)
+            }
+            catch (error) {
+                reject(error)
+            }
+        })
+    }
+
+    static DeletePlayerById(playerId) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await fetch(`${DeletePlayerById}`, {
+                    method: 'DELETE', 
+                    headers: {
+                        "content-type": "application/json",
+                        "accept": "application/json",
+                        "Access-Control-Allow-Origin": "*"
+                    },
+                    body: JSON.stringify({
+                        playerId
+                    })
+                })
+                console.log(`${DeletePlayerById}`, res);
                 const data = await res.json();
                 console.log('data=', data)
                 resolve(data)

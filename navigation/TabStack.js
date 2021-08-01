@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Home from '../Pages/AppHome/Home';
 import { Games } from '../Pages/AppHome/Games';
+import Profile from '../Pages/AppHome/Profile'
 
 
 
@@ -48,16 +49,16 @@ const TabStack = ({ route }) => {
                     ),
                 }}
             />
-            {/* <Tab.Screen
+            <Tab.Screen
                 name="Profile"
-                //component={Profile}
+                component={Profile}
                 options={{
                     tabBarLabel: 'Profile',
                     tabBarIcon: ({ color }) => (
-                        <MaterialCommunityIcons name="account" color={color} size={24} />
+                        <MaterialCommunityIcons name="account" color={color} size={32} />
                     ),
                 }}>
-            </Tab.Screen> */}
+            </Tab.Screen>
 
 
         </Tab.Navigator>
