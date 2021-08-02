@@ -6,6 +6,14 @@ const AddPlayerById = "https://localhost:44324/api/player/AddPlayer"
 const UpdatePlayerById = "https://localhost:44324/api/player/UpdatePlayer"
 const DeletePlayerById = "https://localhost:44324/api/player/DeletePlayer"
 
+//server
+const RegisterServerURL = "http://ruppinmobile.tempdomain.co.il/site16/api/user/Register"
+const LoginServerURL = "http://ruppinmobile.tempdomain.co.il/site16/api/user/Login"
+const GetPlayersByIdServerURL = "http://ruppinmobile.tempdomain.co.il/site16/api/player"
+const AddPlayerByIdServerURL = "http://ruppinmobile.tempdomain.co.il/site16/api/player/AddPlayer"
+const UpdatePlayerByIdServerURL = "http://ruppinmobile.tempdomain.co.il/site16/api/player/UpdatePlayer"
+const DeletePlayerByIdServerURL = "http://ruppinmobile.tempdomain.co.il/site16/api/player/DeletePlayer"
+
 export default class userHandler {
 
     static register(email, fullName, password, createdAt) {

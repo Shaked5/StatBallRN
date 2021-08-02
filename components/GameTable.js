@@ -1,73 +1,72 @@
-import React, { useContext, useState,useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { DataTable } from "react-native-paper";
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-  TouchableOpacity,
-  Text,
-} from "react-native";
+import { StyleSheet,View,ScrollView, TouchableOpacity,Text,} from "react-native";
 import { StatBallContext } from "../context";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 
-const optionsPerPage = [2, 3, 4];
 
 const GameTable = () => {
-  const [page, setPage] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(optionsPerPage[0]);
   const { playerList } = useContext(StatBallContext);
   const [rebounds, setRebounds] = useState(0);
-  const [statistics,setStatistics] = useState();
-  const [playerPointer,setPlayerPointer] = useState();
+  const [statistics, setStatistics] = useState([]);
+  const [playerPointer, setPlayerPointer] = useState();
 
 
   useEffect(() => {
-     initialStatistics();
-    console.log('StatUseEffect=', statistics );
-    }, []);
+    let players2 = initialStatistics();
+    async function fetchdata() {
+      const response = await setStatistics(players2);
+    }
+    fetchdata()
+    console.log('players2=', players2);
+    console.log('Statistics=', statistics);
+  }, []);
 
-    useEffect(() => {
-     console.log('StatUseEffect= AFTER SET', statistics );
-     }, [setStatistics]);
- 
-    // useEffect(() => {
-    //   console.log('playerPointerAfter= ',playerPointer);
-    //   console.log('Statistics use effect=  ', Statistics);
-    //   }, [playerPointer]);
+  useEffect(() => {
+    console.log('StatUseEffect= AFTER SET', statistics);
+  }, [statistics]);
 
-    const initialStatistics = () => {
-      let players = [];
-      playerList.map(
-        player =>
-          (players = [
-            ...players,
-            {
-              playerId: player.playerId,
-              playerName: player.fName + " " + player.lName,
-              FT: 0,
-              twoPT: 0,
-              threePT: 0,
-              steals: 0,
-              rebounds: 0,
-            },
-          ])
-      );
-       setStatistics(players)
-    };
-  const handlePressRebounds=async(player)=>{
-   let pPointer = statistics.find(x=> x.playerId === player.playerId);
-   console.log('pPointer= ',pPointer);
+  // useEffect(() => {
+  //   console.log('playerPointerAfter= ',playerPointer);
+  //   console.log('Statistics use effect=  ', Statistics);
+  //   }, [playerPointer]);
+
+  const initialStatistics = () => {
+    let players = [];
+    playerList.map(
+      player =>
+      (players = [
+        ...players,
+        {
+          playerId: player.playerId,
+          playerName: player.fName + " " + player.lName,
+          FT: 0,
+          shirtNumber: player.shirtNumber,
+          twoPT: 0,
+          threePT: 0,
+          steals: 0,
+          rebounds: 0,
+        },
+      ])
+    );
+    return players;
+  };
+  const handlePressAddRebounds = async (player) => {
+    let pPointer = statistics.find(x => x.playerId === player.playerId);
+    console.log('pPointer= ', pPointer);
     //  change properties
-   pPointer['rebounds'] =pPointer.rebounds +1
-  //  await setPlayerPointer(pPointer)
-   console.log('pPointer= ',pPointer);
-  //  console.log('playerPointerAfter= ',playerPointer);
- 
-  
-   let newArray = statistics.filter(x=> x.playerId !== player.playerId)
-   console.log('newArray=',newArray);
-       setStatistics([...newArray,pPointer])
+    pPointer['rebounds'] = pPointer.rebounds + 1
+    //  await setPlayerPointer(pPointer)
+    //  console.log('playerPointerAfter= ',playerPointer);
+
+    let newArray = statistics.filter(x => x.playerId !== player.playerId)
+    console.log('newArray=', newArray);
+    setStatistics([pPointer, ...newArray])
   }
+
+  // handlePressMinusRebounds = async () => {
+
+  // }
 
   // const test =()=>{
   //   if(statistics !== undefined){
@@ -78,7 +77,7 @@ const GameTable = () => {
   //   }
   // }
 
-  const renderPlayers = playerList.map((player,index) => {
+  const renderPlayers = statistics.map((player, index) => {
     return (
       <DataTable.Row key={index} style={styles.dataTable}>
         <DataTable.Cell style={{ flex: 0.5, justifyContent: 'center' }}>
@@ -86,7 +85,7 @@ const GameTable = () => {
         </DataTable.Cell>
 
         <DataTable.Cell style={styles.playerName}>
-          {player.fName} {player.lName}
+          {player.playerName}
         </DataTable.Cell>
 
         <DataTable.Cell>
@@ -266,7 +265,7 @@ const GameTable = () => {
               style={styles.iconsToggle}
               size={25}
               color="green"
-              onPress={()=> alert('add steal')}
+              onPress={() => alert('add steal')}
             />
           </View>
         </DataTable.Cell>
@@ -279,26 +278,26 @@ const GameTable = () => {
               color="red"
               onPress={() => alert("minus rebounds")}
             />
-           
+
             <MaterialIcons
               name="add"
               style={styles.iconsToggle}
               size={25}
               color="green"
-              onPress={() => handlePressRebounds(player)}
+              onPress={() => handlePressAddRebounds(player)}
             />
-            {/* <Text>{player.rebounds}</Text> */}
+            <Text>{player.rebounds}</Text>
           </View>
         </DataTable.Cell>
       </DataTable.Row>
     );
   });
 
-  console.log(playerPointer);
+  console.log(playerList);
   console.log(statistics);
   return (
-    <View style={{height:'100%'}}>
-      <View style={{ backgroundColor: "rgba(251,251,251,0.60)", height: '12%', width: '30%', alignSelf: 'center', margin:'2%' }}>
+    <View style={{ height: '100%' }}>
+      <View style={{ backgroundColor: "rgba(251,251,251,0.60)", height: '12%',justifyContent:'center', width: '25%', alignSelf: 'center', margin: '2%' }}>
         <Text style={{ fontSize: 18, fontWeight: 600 }}>
           <MaterialCommunityIcons
             name="basketball-hoop-outline"
@@ -306,15 +305,15 @@ const GameTable = () => {
             size={30}
             color="green"
           /> =  Success Throw</Text>
-      
-      <Text style={{ fontSize: 18, fontWeight: 600,marginTop:15 }}>
-        <MaterialCommunityIcons
-          name="basketball-hoop"
-          style={styles.iconsToggle}
-          size={30}
-          color="red"
-        /> =  Miss Throw</Text>
-        </View>
+
+        <Text style={{ fontSize: 18, fontWeight: 600, marginTop: 15 }}>
+          <MaterialCommunityIcons
+            name="basketball-hoop"
+            style={styles.iconsToggle}
+            size={30}
+            color="red"
+          /> =  Miss Throw</Text>
+      </View>
       <View style={styles.DataTableView}>
         <DataTable style={styles.dataTable}>
 
@@ -346,7 +345,7 @@ const styles = StyleSheet.create({
   DataTableView: {
     alignSelf: 'center',
     width: "95%",
-    height: "80%",
+    height: "60%",
   },
   playerContainer: {
     flex: 1,
@@ -369,30 +368,8 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
   },
-  shirtNumber: {
-
-  },
-
   title: {
     fontWeight: 'bold',
   },
 
-  btnCell: {
-
-  },
 });
-
-{
-  /* 
-      <DataTable.Pagination
-        page={page}
-        numberOfPages={3}
-        onPageChange={(page) => setPage(page)}
-        label="1-2 of 6"
-        optionsPerPage={optionsPerPage}
-        itemsPerPage={itemsPerPage}
-        setItemsPerPage={setItemsPerPage}
-        showFastPagination
-        optionsLabel={'Rows per page'}
-      /> */
-}

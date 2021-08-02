@@ -18,7 +18,6 @@ const UserProfile = () => {
               source={require("../Images/success.png")}
             />
            <View>
-          <Text style={styles.userText}>Id number : {user.userId}</Text>
           <Text style={styles.userText}>Fullname : {user.fullName}</Text>
           <Text style={styles.userText}>Email : {user.email}</Text>
           </View>

@@ -8,8 +8,7 @@ export const Profile = () => {
     return (
         <View style={styles.centeredView}>
             <ImageBackground source={ProfileBackground} style={styles.backgroundImage}>
-                {/* <UserProfile/> */}
-                <GameTable/>
+                <UserProfile/>
             </ImageBackground>
          
         </View>

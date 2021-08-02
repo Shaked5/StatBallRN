@@ -3,8 +3,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Home from '../Pages/AppHome/Home';
 import { Games } from '../Pages/AppHome/Games';
-import Profile from '../Pages/AppHome/Profile'
-
+import Profile from '../Pages/AppHome/Profile';
+import CreateGameScreen from '../Pages/AppHome/CreateGameScreen';
 
 
 const Tab = createBottomTabNavigator();
@@ -59,6 +59,17 @@ const TabStack = ({ route }) => {
                     ),
                 }}>
             </Tab.Screen>
+            <Tab.Screen
+                name="Play"
+                component={CreateGameScreen}
+                options={{
+                    tabBarLabel: 'Play',
+                    tabBarIcon: ({ color }) => (
+                        <MaterialCommunityIcons name="play-circle-outline" color={color} size={32} />
+                    ),
+                }}>
+            </Tab.Screen>
+
 
 
         </Tab.Navigator>

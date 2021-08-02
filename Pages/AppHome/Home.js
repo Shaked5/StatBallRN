@@ -41,13 +41,13 @@ export const Home = (route) => {
       player.age,
       player.height
     );
-    // Toast.show({
-    //   position: "top",
-    //   visibilityTime: 4000,
-    //   type: "success",
-    //   text1: "Message",
-    //   text2: "Add a new player completed 👋",
-    // });
+    Toast.show({
+      position: "top",
+      visibilityTime: 4000,
+      type: "success",
+      text1: "Message",
+      text2: "Add a new player completed 👋",
+    });
     setIsFirstTime(false)
     let players = await userHandler.GetPlayersById(player.userId)
     setPlayerList(players)
@@ -55,7 +55,6 @@ export const Home = (route) => {
 
 
   const handleUpdatePlayerById = async (player) => {
-    console.log("Home component= ",player);
     let res = await userHandler.UpdatePlayerById(
       player.playerId,
       player.fName,
@@ -85,7 +84,6 @@ export const Home = (route) => {
   const Tab = createBottomTabNavigator();
   const HomeStack = createStackNavigator();
   const GamesStack = createStackNavigator();
-console.log(playerList);
   return (
     <View style={styles.centeredView} >
       <PlayerTeam />

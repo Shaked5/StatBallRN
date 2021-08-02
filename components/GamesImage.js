@@ -11,25 +11,20 @@ import {
 } from "react-native";
 import { TextInput } from "react-native-paper";
 import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation  } from '@react-navigation/native';
 import basketBG from "../Images/backgroundLogin.jpg";
 import GameTable from "./GameTable";
 
 
 const Stack = createStackNavigator();
-const GamesImage = ({ navigation }) => {
+const GamesImage = () => {
   const [homeTeam, setHomeTeam] = useState("");
   const [awayTeam, setAwayTeam] = useState("");
+  const navigation = useNavigation();
 
 
-  const handleAddGame = () => {
-    if (homeTeam !== "" && awayTeam !== "") {
-      alert(':)')
-    }
-    else {
-      alert('null')
-    }
-  }
+
+
 
   return (
     <View style={styles.centeredView}>
@@ -58,7 +53,10 @@ const GamesImage = ({ navigation }) => {
             </View>
             <TouchableOpacity
               style={styles.insideCenteredView}
-              onPress={handleAddGame}
+              onPress={()=> {
+                navigation.navigate('Play')
+
+              }}
             >
               <Text style={styles.buttonText}>Add Game</Text>
             </TouchableOpacity>
