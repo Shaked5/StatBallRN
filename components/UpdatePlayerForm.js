@@ -1,7 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import userHandler from "../handler/userHandler";
-import { retrieveAsyncStorageData, removeAsyncStorageData} from "../handler/storage";
-import {StyleSheet, Text, View, TextInput, TouchableOpacity} from "react-native";
+import { retrieveAsyncStorageData, removeAsyncStorageData } from "../handler/storage";
+import { StyleSheet, Text, View, TextInput, TouchableOpacity } from "react-native";
 import Toast from "react-native-toast-message";
 import { Picker } from "@react-native-picker/picker";
 import { StatBallContext } from "../context";
@@ -14,40 +14,35 @@ const UpdatePlayerForm = (props) => {
   const [shirtNumber, setShirtNumber] = useState("");
   const [position, setPosition] = useState("");
   const [height, setHeight] = useState("");
-  const {user,EPlayer} = useContext(StatBallContext);
+  const { user, EPlayer } = useContext(StatBallContext);
 
 
+  useEffect(() => {
+    GetValuesFromData()
+  }, [])
+
+  const GetValuesFromData = async () => {
+    setFirstName(EPlayer.fName)
+    setLastName(EPlayer.lName);
+    setShirtNumber(EPlayer.shirtNumber);
+    setPosition(EPlayer.position);
+    setAge(EPlayer.age);
+    setHeight(EPlayer.height);
+  };
 
   const UpdatePlayerToData = async () => {
-    
-    
-    
-      // if (
-      //   firstName === "" ||
-      //   lastName === "" ||
-      //   shirtNumber === "" ||
-      //   position === "" ||
-      //   age === "" ||
-      //   height === ""
-      // ) {
-      //   Toast.show({
-      //     position: "top",
-      //     type: "error",
-      //     text1: "Warning",
-      //     text2: "Please fill all field",
-      //   });
-        
-      // }
-      props.handleUpdatePlayerById({playerId:EPlayer.playerId,fName:firstName,lName:lastName,shirtNumber,position ,age,height});
 
-      // Toast.show({
-      //   position: "bottom",
-      //   type: "success",
-      //   text1: "Message",
-      //   text2: "Add a new player completed 👋",
-      // });
-    
-  };
+    // Toast.show({
+    //   position: "top",
+    //   type: "error",
+    //   text1: "Warning",
+    //   text2: "Please fill all field",
+    // });
+    props.handleUpdatePlayerById({ playerId: EPlayer.playerId, fName: firstName, lName: lastName, shirtNumber: shirtNumber, position: position, age: age, height: height });
+  }
+
+
+
 
   return (
     <View style={styles.centeredView}>
@@ -76,12 +71,11 @@ const UpdatePlayerForm = (props) => {
           <Picker
             style={styles.Picker}
             selectedValue={position}
-            defaultValue={EPlayer.position}
             onValueChange={(itemValue) =>
               setPosition(itemValue)
             }
           >
-            <Picker.Item label="Choose" value="Choose"/>
+            <Picker.Item label="Choose" value="Choose" />
             <Picker.Item label="Point guard" value="Point guard" />
             <Picker.Item label="Shooting guard" value="Shooting guard" />
             <Picker.Item label="Small forward" value="Small forward" />
@@ -89,7 +83,7 @@ const UpdatePlayerForm = (props) => {
             <Picker.Item label="Center" value="Center" />
           </Picker>
 
-          <TextInput style={styles.input} defaultValue={EPlayer.age}  onChangeText={text => setAge(text)} />
+          <TextInput style={styles.input} defaultValue={EPlayer.age} onChangeText={text => setAge(text)} />
           <TextInput
             style={styles.input}
             onChangeText={(text) => setHeight(text)}
@@ -100,7 +94,7 @@ const UpdatePlayerForm = (props) => {
           <TouchableOpacity
             style={styles.AddPlayerButton}
             onPress={UpdatePlayerToData}
-            
+
           >
             <Text style={styles.buttonText}>Update Player</Text>
           </TouchableOpacity>

@@ -9,6 +9,7 @@ import Login from '../Pages/AppAuth/Login';
 import Register from '../Pages/AppAuth/Register';
 import Home from '../Pages/AppHome/Home';
 import { retrieveAsyncStorageData } from '../handler/storage';
+import GameTable from '../components/GameTable';
 
 
 const MainNavigator = (navigation, route) => {
@@ -42,6 +43,7 @@ const MainNavigator = (navigation, route) => {
             <StackMain.Navigator initialRouteName="Login">
                 <StackMain.Screen name='Login' component={Login} options={{ headerShown: false }} />
                 <StackMain.Screen name='Register' component={Register} options={{ headerShown: false }} />
+                
             </StackMain.Navigator>
         </NavigationContainer>
 

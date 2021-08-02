@@ -10,12 +10,26 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { TextInput } from "react-native-paper";
-
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
 import basketBG from "../Images/backgroundLogin.jpg";
+import GameTable from "./GameTable";
 
-const GamesImage = () => {
+
+const Stack = createStackNavigator();
+const GamesImage = ({ navigation }) => {
   const [homeTeam, setHomeTeam] = useState("");
   const [awayTeam, setAwayTeam] = useState("");
+
+
+  const handleAddGame = () => {
+    if (homeTeam !== "" && awayTeam !== "") {
+      alert(':)')
+    }
+    else {
+      alert('null')
+    }
+  }
 
   return (
     <View style={styles.centeredView}>
@@ -39,14 +53,15 @@ const GamesImage = () => {
                   onChangeText={(awayTeam) => setAwayTeam(awayTeam)}
                   placeholder="Enter Team Name"
                 />
-            
+
               </View>
             </View>
             <TouchableOpacity
-                  style={styles.insideCenteredView}
-                >
-                  <Text style={styles.buttonText}>Add Game</Text>
-                </TouchableOpacity>
+              style={styles.insideCenteredView}
+              onPress={handleAddGame}
+            >
+              <Text style={styles.buttonText}>Add Game</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </ImageBackground>
@@ -91,10 +106,10 @@ const styles = StyleSheet.create({
     hight: "90%",
   },
 
-  allTeams:{
-     
+  allTeams: {
+
   },
- 
+
   teams: {
     flex: 2,
     flexDirection: "row",
@@ -110,20 +125,20 @@ const styles = StyleSheet.create({
     backgroundColor: "lightgreen",
   },
   input: {
-    alignSelf:'center',
+    alignSelf: 'center',
     height: 15,
     padding: 20,
-    width:'80%',
+    width: '80%',
     margin: 20,
     textAlign: "center",
-    borderRadius:10,
-    
+    borderRadius: 10,
+
   },
-  buttonText:{
-      fontSize:30,
-      padding:25,
-      backgroundColor:'orange',
-      borderRadius: 15,
+  buttonText: {
+    fontSize: 30,
+    padding: 25,
+    backgroundColor: 'orange',
+    borderRadius: 15,
 
   },
 });

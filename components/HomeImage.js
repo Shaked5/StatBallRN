@@ -9,7 +9,7 @@ import PlayerTeam from "../Pages/PlayerTeam";
 import UpdatePlayerForm from '../components/UpdatePlayerForm';
 
 const HomeImage = (props) => {
-  const {openModal, setOpenModal, EPlayer} = useContext(StatBallContext);
+  const {openModal, setOpenModal, EPlayer,setEPlayer} = useContext(StatBallContext);
 
 
 
@@ -47,7 +47,7 @@ const HomeImage = (props) => {
               style={styles.modalToggle}
               size={44}
               color="white"
-              onPress={() => setOpenModal(true)}
+              onPress={() =>{ setEPlayer(null),setOpenModal(true)}}
             />
             <Text style={styles.text}>Add Player</Text>
           </View>

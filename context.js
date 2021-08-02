@@ -8,9 +8,9 @@ function StatBallProvider({ children }) {
     const [Games, setGames] = React.useState(null);
     const [EPlayer, setEPlayer] = React.useState(null);
     const [openModal, setOpenModal] = React.useState(false);
-    const [playersList, setPlayerList] = React.useState([]);
+    const [playerList, setPlayerList] = React.useState([]);
 
-    const value = { user, setUser, players, setPlayers, Games, setGames, EPlayer, setEPlayer, openModal, setOpenModal, playersList, setPlayerList };
+    const value = { user, setUser, players, setPlayers, Games, setGames, EPlayer, setEPlayer, openModal, setOpenModal, playerList, setPlayerList };
     return <StatBallContext.Provider value={value}>{children}</StatBallContext.Provider>;
 
 }

@@ -17,7 +17,7 @@ export const PlayerTeam = ({ route, navigation }) => {
   const [selectedId, setSelectedId] = useState(null);
   const { getItem, setItem } = useAsyncStorage('user');
   const [visible, setVisible] = useState(false);
-  const { playersList, setPlayerList, setUser, setEPlayer, user, setOpenModal } = useContext(StatBallContext);
+  const { playerList, setPlayerList, setUser, setEPlayer, user, setOpenModal } = useContext(StatBallContext);
 
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export const PlayerTeam = ({ route, navigation }) => {
   useEffect(() => {
     // getData();
 
-  }, [playersList])
+  }, [playerList])
 
 
   const getData = async () => {
@@ -61,7 +61,7 @@ export const PlayerTeam = ({ route, navigation }) => {
         setPlayerList(players)
       }
     }
-    catch(ex){
+    catch (ex) {
       console.error(ex.message);
     }
   }
@@ -92,36 +92,35 @@ export const PlayerTeam = ({ route, navigation }) => {
         <Text style={[styles.title, textColor]}>{item.fName} {item.lName}</Text>
         <Text style={styles.position}>{item.position}</Text>
         <Text style={styles.prop}>Age: {item.age} Height: {item.height}</Text>
-        <TouchableOpacity onPress={() => {
-          setEPlayer(item);
-          setOpenModal(true)
-        }
-        }>
-          <View>
-            <AntDesign name="edit" size={24} color="black" />
+        </View>
+        <View style={styles.btnContainer}>
+          <View style={styles.btnEdit}>
+            <TouchableOpacity onPress={() => {
+              setEPlayer(item);
+              setOpenModal(true)
+            }
+            }>
+              <AntDesign name="edit" size={24} color="black" />
+            </TouchableOpacity>
           </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.deleteBtn} onPress={() => {
-          console.log('delete');
-          handleDeletePlayerById(item.playerId)
-
-        }
-        }>
-
-          <View>
-            <AntDesign name="delete" size={24} color="black" />
+          <View style={styles.deleteBtn}>
+            <TouchableOpacity style={styles.deleteBtn} onPress={() => {
+              console.log('delete');
+              handleDeletePlayerById(item.playerId)
+            }
+            }>
+              <AntDesign name="delete" size={24} color="black" />
+            </TouchableOpacity>
           </View>
-        </TouchableOpacity>
-      </View>
-      {/* </View> */}
+        </View>
+     
     </TouchableOpacity>
   );
   return (
     <View style={styles.container}>
 
       <View style={styles.header}>
-        <Text style={styles.userText}>Welcome {name}</Text>
+        <Text style={styles.userText}>Welcome {user.fullName}</Text>
 
         <TouchableOpacity onPress={btnLogOut}>
           <View>
@@ -133,7 +132,7 @@ export const PlayerTeam = ({ route, navigation }) => {
       <View style={{ flex: 10, backgroundColor: "#fff" }}>
         <ScrollView >
           <FlatList
-            data={playersList}
+            data={playerList}
             renderItem={renderItem}
             keyExtractor={(item) => item.playerId}
             extraData={selectedId}
@@ -200,23 +199,29 @@ const styles = StyleSheet.create({
   detailsSection: {
     flex: 0.8,
     flexDirection: 'row',
-    margin: 10
+    margin: 10,
+    alignItems:'center'
   },
   title: {
     fontSize: 20,
     fontWeight: 700,
+    marginLeft:'20px'
   },
   position: {
-    fontSize: 18,
+    fontSize: 20,
     padding: 5,
-    margin: 0,
+    marginLeft: '50px',
+    width:'300px'
   },
   prop: {
     display: 1,
-    fontSize: 18,
+    fontSize: 16,
     padding: 5,
     fontWeight: 400,
     color: '#333',
+    marginLeft:40,
+    // alignItems:'center',
+    
 
   },
   rowDir: {
@@ -229,6 +234,19 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   deleteBtn: {
-    marginLeft: '2%'
+   marginTop: '20%',
+   alignItems:'center'
+
   },
+  btnEdit: {
+    marginTop:"5%",
+    alignItems:'center'
+  },
+  btnContainer: {
+    flex:1,
+    flexDirection:'column',
+    marginLeft: '70%',
+    alignItems:'center',
+    marginTop:15
+  }
 });
